@@ -1,6 +1,7 @@
 (ns metabase.search
   (:require [clojure.core.memoize :as memoize]
             [clojure.string :as str]
+            [metabase.models.card :refer [Card]]
             [metabase.models.table :refer [Table]]
             [schema.core :as s]))
 
@@ -50,6 +51,11 @@
 (defmethod searchable-columns-for-model :default
   [_]
   [:name])
+
+(defmethod searchable-columns-for-model (class Card)
+  [_]
+  [:name
+   :dataset_query])
 
 (defmethod searchable-columns-for-model (class Table)
   [_]
